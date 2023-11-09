@@ -10,8 +10,14 @@ $(shell > $(RESULT))
 
 ALL = $(basename $(notdir $(shell find . -name "*.cpp")))
 
+ifeq ($(ALL),all)
+	override ALL = $(basename $(notdir $(shell find . -name "*.cpp")))
+endif
+
 all: $(addprefix Makefile., $(ALL))
 	@echo "" $(ALL)
+	@cat $(RESULT)
+	@rm $(RESULT)
 
 $(ALL): %: Makefile.%
 
@@ -25,8 +31,6 @@ Makefile.%: %.cpp
 	-@rm -f Makefile.$*
 
 run: all
-	@cat $(RESULT)
-	@rm $(RESULT)
 
 gdb: all
 

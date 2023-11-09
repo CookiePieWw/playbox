@@ -40,8 +40,8 @@ CXX       = g++
 INC_PATH += $(WORK_DIR)/include
 INCFLAGS += $(addprefix -I, $(INC_PATH))
 
-CFLAGS   += -O2 -Wall -Werror $(INCFLAGS)
-CXXFLAGS += $(CFLAGS)
+CFLAGS   += -O2 -Wall -Werror $(INCFLAGS) -g
+CXXFLAGS += $(CFLAGS) -std=c++20
 
 ## 5. Compilation Rules
 
