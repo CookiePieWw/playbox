@@ -5,6 +5,7 @@
 !*.cc
 !*.S
 !*.cpp
+!.clang-format
 !Makefile
 !README
 !README.md
