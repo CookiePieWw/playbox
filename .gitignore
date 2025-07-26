@@ -6,7 +6,7 @@
 !*.S
 !*.cpp
 !.clang-format
-!Makefile
+!justfile
 !README
 !README.md
 !LICENSE

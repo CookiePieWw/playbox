@@ -1,0 +1,41 @@
+# Project-specific justfile for pstree
+
+# Project configuration
+PROJECT_NAME := "pstree"
+SOURCES := "pstree.c"
+OUTPUT := "pstree"
+CC := "gcc"
+CFLAGS := "-Wall -Wextra -std=c99 -O2"
+
+# Build the project
+build:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "Building {{PROJECT_NAME}}..."
+    {{CC}} {{CFLAGS}} {{SOURCES}} -o {{OUTPUT}}
+    echo "✓ Built {{OUTPUT}}"
+
+# Run the project
+run +args="":
+    ./{{OUTPUT}} {{args}}
+
+# Clean build artifacts
+clean:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -f "{{OUTPUT}}" ]]; then
+        rm -f "{{OUTPUT}}"
+        echo "✓ Cleaned {{OUTPUT}}"
+    fi
+
+# Debug build with debug flags
+debug:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "Building {{PROJECT_NAME}} with debug flags..."
+    {{CC}} {{CFLAGS}} -g -DDEBUG {{SOURCES}} -o {{OUTPUT}}
+    echo "✓ Built {{OUTPUT}} (debug version)"
+
+# Run with gdb
+gdb:
+    gdb --args ./{{OUTPUT}}
