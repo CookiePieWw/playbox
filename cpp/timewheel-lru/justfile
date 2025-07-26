@@ -1,0 +1,50 @@
+# Project configuration
+PROJECT_NAME := "timewheel-lru"
+CXX := "g++"
+CXXFLAGS := "-std=c++23 -Wall -Wextra -O2"
+DEBUG_FLAGS := "-std=c++23 -Wall -Wextra -g -O0"
+
+# Source and build directories
+SRC_DIR := "src"
+BIN_DIR := "bin"
+
+# Default target
+_default:
+    @just --list
+
+# Build the project
+build:
+    mkdir -p {{BIN_DIR}}
+    {{CXX}} {{CXXFLAGS}} -I{{SRC_DIR}} {{SRC_DIR}}/*.cpp -o {{BIN_DIR}}/{{PROJECT_NAME}}
+    @echo "Built {{PROJECT_NAME}}"
+
+# Build with debug flags
+debug:
+    mkdir -p {{BIN_DIR}}
+    {{CXX}} {{DEBUG_FLAGS}} -I{{SRC_DIR}} {{SRC_DIR}}/*.cpp -o {{BIN_DIR}}/{{PROJECT_NAME}}
+    @echo "Built {{PROJECT_NAME}} (debug)"
+
+# Run the project
+run *args:
+    @just build
+    ./{{BIN_DIR}}/{{PROJECT_NAME}} {{args}}
+
+# Run with debug build
+run-debug *args:
+    @just debug
+    ./{{BIN_DIR}}/{{PROJECT_NAME}} {{args}}
+
+# Clean build artifacts
+clean:
+    rm -rf {{BIN_DIR}}
+    @echo "Cleaned build artifacts"
+
+# Format source files
+format:
+    find {{SRC_DIR}} -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-format -i
+    @echo "Formatted source files"
+
+# Run with GDB debugger
+gdb:
+    @just debug
+    gdb ./{{BIN_DIR}}/{{PROJECT_NAME}}

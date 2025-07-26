@@ -1,0 +1,41 @@
+# Project-specific justfile for expr
+
+# Project configuration
+PROJECT_NAME := "expr"
+SOURCES := "expr.cpp"
+OUTPUT := "expr"
+CXX := "g++"
+CXXFLAGS := "-Wall -Wextra -std=c++20 -O2"
+
+# Build the project
+build:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "Building {{PROJECT_NAME}}..."
+    {{CXX}} {{CXXFLAGS}} {{SOURCES}} -o {{OUTPUT}}
+    echo "✓ Built {{OUTPUT}}"
+
+# Run the project
+run +args="":
+    ./{{OUTPUT}} {{args}}
+
+# Clean build artifacts
+clean:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -f "{{OUTPUT}}" ]]; then
+        rm -f "{{OUTPUT}}"
+        echo "✓ Cleaned {{OUTPUT}}"
+    fi
+
+# Debug build with debug flags
+debug:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "Building {{PROJECT_NAME}} with debug flags..."
+    {{CXX}} {{CXXFLAGS}} -g -DDEBUG {{SOURCES}} -o {{OUTPUT}}
+    echo "✓ Built {{OUTPUT}} (debug version)"
+
+# Run with gdb
+gdb:
+    gdb --args ./{{OUTPUT}}
