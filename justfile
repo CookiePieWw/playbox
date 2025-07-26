@@ -13,9 +13,9 @@ build project:
     #!/usr/bin/env bash
     set -euo pipefail
     if [[ -d "c/{{project}}" ]]; then
-        cd "c/{{project}}" && just build
+        cd "c/{{project}}" && just debug
     elif [[ -d "cpp/{{project}}" ]]; then
-        cd "cpp/{{project}}" && just build
+        cd "cpp/{{project}}" && just debug
     else
         echo "Project '{{project}}' not found in c/ or cpp/ directories"
         exit 1

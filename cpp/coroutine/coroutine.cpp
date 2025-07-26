@@ -1,5 +1,4 @@
 #include <coroutine>
-#include <generator>
 #include <iostream>
 
 template <typename T> struct Generator {
@@ -55,7 +54,7 @@ template <typename T> struct Generator<T>::promise_type {
 	T result_;
 };
 
-Generator<double> async_fib(size_t n) {
+Generator<double> async_fib(size_t n [[maybe_unused]]) {
 	auto a = 0.1, b = 0.2;
 	while (true) {
 		co_yield b;
