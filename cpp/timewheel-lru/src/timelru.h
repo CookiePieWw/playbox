@@ -86,12 +86,18 @@ bool TimeLRUCache<Key, Value, SlotNum>::TryPut(Key key, Value value,
 	return res;
 }
 
+// TODO: Value returend may be invalidated after the timer task runs or `Evict`
+// is called. Should use a `Pin` or `std::shared_ptr` to ensure the value is
+// valid.
 template <typename Key, typename Value, size_t SlotNum>
 const Value *TimeLRUCache<Key, Value, SlotNum>::Get(const Key &key) const {
 	std::scoped_lock<std::mutex> lock(mutex);
 	return cache.Get(key);
 }
 
+// TODO: Value returend may be invalidated after the timer task runs or `Evict`
+// is called. Should use a `Pin` or `std::shared_ptr` to ensure the value is
+// valid.
 template <typename Key, typename Value, size_t SlotNum>
 Value *TimeLRUCache<Key, Value, SlotNum>::Get(const Key &key) {
 	std::scoped_lock<std::mutex> lock(mutex);
