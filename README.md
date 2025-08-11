@@ -9,6 +9,7 @@ A collection of small programming projects for learning and experimentation.
 - [**coroutine**](cpp/coroutine/) - C++20 coroutine fibonacci generator
 - [**timewheel-lru**](cpp/timewheel-lru/) - LRU cache with ttl based on a time-wheel algorithm
 - [**linux-io**](cpp/linux-io/) - Linux IO examples for buffered IO, direct IO, AIO, and io-uring
+- [**stdexec**](cpp/stdexec/) - NVIDIA's `stdexec` example, C++26 incoming feature
 
 ## Quick Start
 
